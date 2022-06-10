@@ -3,8 +3,10 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/core.dart';
 import 'package:collection/collection.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../../../../../common/const.dart';
 import '../../../domain/entities/step_model.dart';
+import '../../../domain/entities/user_counter_model.dart';
 
 class PedometerRemote {
   PedometerRemote();
@@ -14,15 +16,16 @@ class PedometerRemote {
   final CollectionReference _userPedometerCollection =
       FirebaseFirestore.instance.collection(kUserPedometerCollectionKey);
 
-  late String userId;
+  late User user;
 
   Future<void> addSteps(StepModel newSteps) async {
     log(userId);
     final collection = _todayStepsCollection(userId);
     final doc = await collection.get().then((value) => value.docs.firstOrNull);
+    final newStepsCount = newSteps.count;
     if (doc != null) {
       final snapSteps = StepModel.fromMap(doc.data());
-      final todayCount = snapSteps.count + newSteps.count;
+      final todayCount = snapSteps.count + newStepsCount;
 
       // because the pedometer package sometimes notify for more than one step
       final countDef = todayCount - snapSteps.count;
@@ -35,9 +38,28 @@ class PedometerRemote {
     } else {
       await collection.add(newSteps.toMap());
       await addAwards(
-        newSteps.count,
-        newSteps.count,
+        newStepsCount,
+        newStepsCount,
       );
+    }
+    await updateTotalCount(newSteps);
+  }
+
+  Future<void> updateTotalCount(StepModel stepModel) async {
+    final userDoc = _userDoc(userId);
+    final userDocRef = await userDoc.get();
+    final total = (userDocRef.data() as Map?)?['count'] ?? 0;
+    final newStepsCount = total + stepModel.count;
+    final countDataModel = UserCounterModel(
+      userName: stepModel.userName!,
+      count: newStepsCount,
+    ).toMap();
+    if (total != 0) {
+      await userDoc.update(
+        countDataModel,
+      );
+    } else {
+      await userDoc.set(countDataModel);
     }
   }
 
@@ -89,11 +111,13 @@ class PedometerRemote {
         await collection.add({kPointsKey: pointInc});
       }
       // add to history
-      await _healthPointHistoryCollection(userId).add({
-        kPointsKey: pointInc,
-        'date': DateTime.now().toIso8601String(),
-        'big': isBig,
-      });
+      await _healthPointHistoryCollection(userId).add(
+        {
+          kPointsKey: pointInc,
+          'date': DateTime.now().toIso8601String(),
+          'big': isBig,
+        },
+      );
       return true;
     }
     return false;
@@ -121,17 +145,18 @@ class PedometerRemote {
 
   CollectionReference<Map<String, dynamic>> _todayStepsCollection(
           String userId) =>
-      _userPedometerCollection.doc(userId).collection(stringNowDateTime());
+      _userDoc(userId).collection(stringNowDateTime());
 
   CollectionReference<Map<String, dynamic>> _healthPointCollection(
           String userId) =>
-      _userPedometerCollection
-          .doc(userId)
-          .collection(kUserHealthPointCollectionKey);
+      _userDoc(userId).collection(kUserHealthPointCollectionKey);
 
   CollectionReference<Map<String, dynamic>> _healthPointHistoryCollection(
           String userId) =>
-      _userPedometerCollection
-          .doc(userId)
-          .collection(kUserHealthPointHistoryCollectionKey);
+      _userDoc(userId).collection(kUserHealthPointHistoryCollectionKey);
+
+  DocumentReference<Object?> _userDoc(String userId) =>
+      _userPedometerCollection.doc(userId);
+
+  String get userId => user.uid;
 }

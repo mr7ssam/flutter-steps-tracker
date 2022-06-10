@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pedometer/pedometer.dart';
 
 import '../entities/step_model.dart';
@@ -11,7 +12,7 @@ abstract class IPedometerRepo {
 
   Stream<PedestrianStatus> get pedestrianStatusStream;
 
-  void startPedometerListener(String userId);
+  void startPedometerListener(User user);
 
   void stopListener();
 

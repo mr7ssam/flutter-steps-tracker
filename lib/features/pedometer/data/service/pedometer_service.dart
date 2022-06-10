@@ -16,7 +16,10 @@ class PedometerService {
     return Pedometer.stepCountStream.map((event) {
       final stepCount = event.steps - _lastCount;
       _lastCount = event.steps;
-      return StepModel(stepCount, event.timeStamp);
+      return StepModel(
+        count: stepCount,
+        timeStamp: event.timeStamp,
+      );
     });
   }
 

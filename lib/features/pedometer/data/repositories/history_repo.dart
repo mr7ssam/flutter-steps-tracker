@@ -30,4 +30,9 @@ class HistoryRepo extends IHistoryRepo {
         .map((event) => HealthRecordModel.fromMap(
             event.doc.data() as Map<String, dynamic>));
   }
+
+  @override
+  Query<Object?> usersRankQuery() {
+    return _remote.userRankQuery();
+  }
 }

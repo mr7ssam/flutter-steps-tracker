@@ -23,7 +23,7 @@ class PedometerFacade {
 
   Future<void> startPedometerListener() async {
     await repo.initLocalCount();
-    repo.startPedometerListener(_userUid());
+    repo.startPedometerListener(userRepo.user!);
   }
 
   void stopListener() => repo.stopListener();
@@ -34,6 +34,8 @@ class PedometerFacade {
   Query redeemsQuery() => historyRepo.redeemsQuery(_userUid());
 
   Query giftsQuery() => giftsRepo.giftsQuery();
+
+  Query usersRankQuery() => historyRepo.usersRankQuery();
 
   Future<void> bayGift(GiftParams giftParams) async {
     final params = giftParams.copyWith(

@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:developer';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_steps_tracker/features/pedometer/data/service/pedometer_service.dart';
 import 'package:pedometer/pedometer.dart';
 
@@ -13,11 +13,13 @@ class PedometerRepo extends IPedometerRepo {
   final PedometerService pedometerService;
   final PedometerRemote pedometerRemote;
 
-  late String _useId;
+  late User _user;
 
   late int _healthPointsValue;
 
-  StreamSubscription<StepModel>? subscription;
+  String get _useId => _user.uid;
+
+  StreamSubscription<StepModel>? _subscription;
 
   @override
   Stream<PedestrianStatus> get pedestrianStatusStream =>
@@ -27,10 +29,11 @@ class PedometerRepo extends IPedometerRepo {
   Stream<int> get stepCount => pedometerRemote.todayCountStream(_useId);
 
   @override
-  Stream<int> get healthPoints =>
-      pedometerRemote.healthPointStream(_useId).map((event) {
-        return _healthPointsValue = event;
-      });
+  Stream<int> get healthPoints => pedometerRemote.healthPointStream(_useId).map(
+        (event) {
+          return _healthPointsValue = event;
+        },
+      );
 
   @override
   int get healthPointsValue => _healthPointsValue;
@@ -41,17 +44,20 @@ class PedometerRepo extends IPedometerRepo {
   }
 
   @override
-  void startPedometerListener(String userId) {
-    pedometerRemote.userId = userId;
-    _useId = userId;
-    subscription ??= pedometerService.stepCount.listen((event) async {
-      await addSteps(event);
+  void startPedometerListener(User user) {
+    _user = user;
+    pedometerRemote.user = _user;
+    _subscription ??= pedometerService.stepCount.listen((event) async {
+      await addSteps(
+        event.copyWith(
+          userName: user.displayName,
+        ),
+      );
     });
   }
 
   @override
   Future<void> addSteps(StepModel newSteps) async {
-    log(newSteps.count.toString());
     return pedometerRemote.addSteps(newSteps);
   }
 
@@ -62,7 +68,7 @@ class PedometerRepo extends IPedometerRepo {
 
   @override
   void stopListener() {
-    subscription?.cancel();
-    subscription = null;
+    _subscription?.cancel();
+    _subscription = null;
   }
 }

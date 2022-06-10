@@ -3,6 +3,7 @@ import 'package:collection/collection.dart';
 import 'package:design/design.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_steps_tracker/common/app_manger/app_manger_bloc.dart';
+import 'package:flutter_steps_tracker/features/root/pages/gifts_page/gifts_page.dart';
 import 'package:flutter_steps_tracker/features/root/permission_handler_widget.dart';
 import 'package:flutter_steps_tracker/features/root/widgets/nav_icon_animation.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -13,11 +14,11 @@ import '../../common/provider/user_provider.dart';
 import '../../service_locator/service_locator.dart';
 import '../pedometer/presentation/manager/gifts_provider.dart';
 import '../pedometer/presentation/manager/pedometer_provider.dart';
-import '../pedometer/presentation/pages/gifts_page/gifts_page.dart';
-import '../pedometer/presentation/pages/history_page/history_page.dart';
 import '../pedometer/presentation/pages/pedometer_page/pedometer_page.dart';
 import 'manager/permission_handler_provider.dart';
 import 'manager/root_manger.dart';
+import 'pages/history_page/history_page.dart';
+import 'pages/rank_page/rank_page.dart';
 
 class RootScreen extends StatelessWidget {
   const RootScreen({Key? key}) : super(key: key);
@@ -84,6 +85,11 @@ class RootScreen extends StatelessWidget {
                   selectedIcon: Icon(FontAwesomeIcons.bagShopping),
                   label: '',
                 ),
+                const NavigationDestination(
+                  icon: Icon(FontAwesomeIcons.rankingStar),
+                  selectedIcon: Icon(FontAwesomeIcons.rankingStar),
+                  label: '',
+                ),
               ]
                   .mapIndexed((index, element) => NavigationPlayAnimation(
                         index: index,
@@ -125,6 +131,7 @@ class RootScreen extends StatelessWidget {
           PermissionHandlerWidget(builder: (context) => const PedometerPage()),
           const HistoryPage(),
           const GiftsPage(),
+          const RankPage(),
         ].map((e) => KeepAliveWidget(child: e)).toList(),
       ),
     );

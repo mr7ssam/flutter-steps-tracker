@@ -7,9 +7,9 @@ import 'package:flutter_steps_tracker/features/pedometer/domain/entities/gift_mo
 import 'package:odometer/odometer.dart';
 
 import '../../../../../service_locator/service_locator.dart';
-import '../../../application/facade.dart';
-import '../../manager/pedometer_provider.dart';
-import '../../widgets/gift_card.dart';
+import '../../../pedometer/application/facade.dart';
+import '../../../pedometer/presentation/manager/pedometer_provider.dart';
+import '../../../pedometer/presentation/widgets/gift_card.dart';
 
 class GiftsPage extends StatelessWidget {
   const GiftsPage({Key? key}) : super(key: key);

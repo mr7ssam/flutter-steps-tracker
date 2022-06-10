@@ -19,4 +19,15 @@ class HistoryRemote {
         .collection(kUserRedeemsHistoryCollectionKey)
         .orderBy('date', descending: true);
   }
+
+  // need different repo but here fro time
+  Query userRankQuery() {
+    return fireStore
+        .collection(kUserPedometerCollectionKey)
+        .where(
+          'count',
+          isGreaterThan: 0,
+        )
+        .orderBy('count');
+  }
 }
