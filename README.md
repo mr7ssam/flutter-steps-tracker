@@ -11,7 +11,7 @@ A simple steps tracker using [pedometer](https://pub.dev/packages/pedometer).
 7. Listen to HP && redeems exchange and show snack bar.
 8. There is 2 type of exchange with threshold, big and normal, they are defined by constants in the code.
 9. History for HP and Redeems exchanges.
-10. Users Ranking 🔥.
+10. Users Ranking 🔥, not included in gifs 😢.
 
 
 
