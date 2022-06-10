@@ -40,7 +40,7 @@ class RootScreen extends StatelessWidget {
                 PermissionHandlerProvider()..askFormPermission(),
           ),
           ChangeNotifierProvider<PedometerProvider>(
-            create: (BuildContext context) => PedometerProvider(sl())..init(),
+            create: (BuildContext context) => PedometerProvider(sl())..start(),
           ),
           ChangeNotifierProvider<GiftsProvider>(
             create: (BuildContext context) =>

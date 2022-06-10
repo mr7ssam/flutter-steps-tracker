@@ -21,6 +21,13 @@ class PedometerPage extends StatelessWidget {
     var colorScheme = context.colorScheme;
     final loading =
         context.select<PedometerProvider, bool>((value) => value.loading);
+    final unSupported =
+        context.select<PedometerProvider, bool>((value) => value.unSupported);
+    if (unSupported) {
+      return const Center(
+        child: Text('Device is not supported'),
+      );
+    }
     if (loading) {
       return const Center(
         child: CircularProgressIndicator(),

@@ -4,6 +4,7 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:design/design.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_steps_tracker/router/router.dart';
 import 'package:flutter_steps_tracker/service_locator/service_locator.dart'
@@ -50,6 +51,9 @@ class App extends StatelessWidget {
   }
 
   FutureOr<void> _doBeforeOpen() async {
+    await SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
+    );
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
     await si.init();

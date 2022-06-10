@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_steps_tracker/common/extension.dart';
 import 'package:pedometer/pedometer.dart';
@@ -10,27 +12,39 @@ class PedometerProvider extends ChangeNotifier {
   PedometerProvider(this.facade)
       : _loading = true,
         _walking = false,
+        _unSupported = false,
         _pedestrianStatus = null,
         _count = 0,
         _healthPoints = 0;
 
-  void init() async {
+  StreamSubscription? stepCountSubscription;
+  StreamSubscription? stepPedestrianStatusSubscription;
+  StreamSubscription? healthPointsSubscription;
+
+  void start() async {
     loading = true;
 
     await facade.startPedometerListener();
 
-    facade.stepCount.listen((event) {
+    stepCountSubscription ??= facade.stepCount.listen((event) {
       count = event;
     });
 
-    facade.pedestrianStatusStream.listen((event) {
-      pedestrianStatus = event;
-      walking = pedestrianStatus.isWalking;
-    });
+    stepPedestrianStatusSubscription ??= facade.pedestrianStatusStream.listen(
+      (event) {
+        pedestrianStatus = event;
+        walking = pedestrianStatus.isWalking;
+        if (pedestrianStatus.isUnknown) {
+          unSupported = true;
+        }
+      },
+    );
 
-    facade.healthPoints.listen((event) {
-      healthPoints = event;
-    });
+    healthPointsSubscription ??= facade.healthPoints.listen(
+      (event) {
+        healthPoints = event;
+      },
+    );
 
     loading = false;
   }
@@ -62,6 +76,15 @@ class PedometerProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool _unSupported;
+
+  bool get unSupported => _unSupported;
+
+  set unSupported(bool unSupported) {
+    _unSupported = unSupported;
+    notifyListeners();
+  }
+
   // used for error handling, maybe in future
   PedestrianStatus? _pedestrianStatus;
 
@@ -85,5 +108,11 @@ class PedometerProvider extends ChangeNotifier {
   void dispose() {
     super.dispose();
     facade.stopListener();
+    stepPedestrianStatusSubscription?.cancel();
+    stepCountSubscription?.cancel();
+    healthPointsSubscription?.cancel();
+    stepPedestrianStatusSubscription = null;
+    stepCountSubscription = null;
+    healthPointsSubscription = null;
   }
 }
