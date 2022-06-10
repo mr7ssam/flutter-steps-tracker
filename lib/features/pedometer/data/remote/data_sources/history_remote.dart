@@ -28,6 +28,6 @@ class HistoryRemote {
           'count',
           isGreaterThan: 0,
         )
-        .orderBy('count');
+        .orderBy('count', descending: true);
   }
 }

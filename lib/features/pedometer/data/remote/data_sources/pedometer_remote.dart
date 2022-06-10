@@ -51,7 +51,7 @@ class PedometerRemote {
     final total = (userDocRef.data() as Map?)?['count'] ?? 0;
     final newStepsCount = total + stepModel.count;
     final countDataModel = UserCounterModel(
-      userName: stepModel.userName!,
+      userName: FirebaseAuth.instance.currentUser!.displayName!,
       count: newStepsCount,
     ).toMap();
     if (total != 0) {
