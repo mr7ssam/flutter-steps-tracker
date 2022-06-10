@@ -3,7 +3,7 @@
 A simple steps tracker using [pedometer](https://pub.dev/packages/pedometer).
 
 | ![gif1](gif1.gif) | ![gif2](gif2.gif) |
-| ------- ------------- | --------------------- |
+| -------------------- | --------------------- |
 ### Project structure:
 
 ```
