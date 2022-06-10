@@ -14,7 +14,11 @@ abstract class GrantPermissionStrategy {
 
     if (!status.isLimited && !status.isGranted) {
       final PermissionStatus result = await permission.request();
-      if (result.isDenied) {
+
+      if (result.isGranted) {
+        onGranted.call();
+        return;
+      } else if (result.isDenied) {
         onDenied.call();
         return;
       } else if (result.isPermanentlyDenied) {
