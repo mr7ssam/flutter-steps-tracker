@@ -1,0 +1,79 @@
+name: flutter_steps_tracker
+description: A new Flutter project.
+publish_to: 'none' 
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+
+dependencies:
+  adaptive_theme: ^3.0.0
+  bootstrap:
+    path: packages/bootstrap
+  cloud_firestore: ^3.1.17
+  core:
+    path: packages/core
+  cupertino_icons: ^1.0.2
+  design:
+    path: packages/design
+  equatable: ^2.0.3
+  firebase_auth: ^3.3.12
+  firebase_core: ^1.14.0
+  firestore_ui: ^1.23.0
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.0.1
+  flutter_svg: ^1.0.3
+  font_awesome_flutter: ^10.1.0
+  get_it: ^7.2.0
+  go_router: ^3.1.1
+  lottie: ^1.3.0
+  odometer: ^3.0.0
+  pedometer: ^3.0.0
+  permission_handler: ^9.2.0
+  provider: ^6.0.2
+  reactive_forms: ^13.0.0
+  rxdart: ^0.27.4
+  simple_animations: ^4.0.2
+  timeago: ^3.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^1.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

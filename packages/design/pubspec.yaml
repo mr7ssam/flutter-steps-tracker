@@ -1,0 +1,60 @@
+name: design
+description:  apps theme.
+version: 0.0.1
+publish_to: none
+homepage:
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.0.1
+  reactive_forms: ^13.0.0
+  extended_image: ^6.0.2+1
+  intl_phone_field: ^3.1.0
+  flutter_keyboard_visibility: ^5.2.0
+  flutter_screenutil: ^5.4.0
+  flutter_svg: ^1.0.3
+  shimmer: ^2.0.0
+  core:
+    path: ../core
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^1.0.4
+
+
+
+
+flutter:
+  fonts:
+    - family: PIcons
+      fonts:
+        - asset: lib/src/fonts/PIcons.ttf
+    - family: NotoKufiArabic
+      fonts:
+        - asset: lib/src/fonts/ar/NotoKufiArabic-Black.ttf
+        - asset: lib/src/fonts/ar/NotoKufiArabic-Bold.ttf
+        - asset: lib/src/fonts/ar/NotoKufiArabic-ExtraBold.ttf
+        - asset: lib/src/fonts/ar/NotoKufiArabic-ExtraLight.ttf
+        - asset: lib/src/fonts/ar/NotoKufiArabic-Light.ttf
+        - asset: lib/src/fonts/ar/NotoKufiArabic-Medium.ttf
+        - asset: lib/src/fonts/ar/NotoKufiArabic-Regular.ttf
+        - asset: lib/src/fonts/ar/NotoKufiArabic-SemiBold.ttf
+        - asset: lib/src/fonts/ar/NotoKufiArabic-Thin.ttf
+    - family: LexendDeca
+      fonts:
+        - asset: lib/src/fonts/en/LexendDeca-Black.ttf
+        - asset: lib/src/fonts/en/LexendDeca-Bold.ttf
+        - asset: lib/src/fonts/en/LexendDeca-ExtraBold.ttf
+        - asset: lib/src/fonts/en/LexendDeca-ExtraLight.ttf
+        - asset: lib/src/fonts/en/LexendDeca-Light.ttf
+        - asset: lib/src/fonts/en/LexendDeca-Medium.ttf
+        - asset: lib/src/fonts/en/LexendDeca-Regular.ttf
+        - asset: lib/src/fonts/en/LexendDeca-SemiBold.ttf
+        - asset: lib/src/fonts/en/LexendDeca-Thin.ttf
