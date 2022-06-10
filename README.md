@@ -2,6 +2,16 @@
 
 A simple steps tracker using [pedometer](https://pub.dev/packages/pedometer).
 
+1- Daily steps counter.
+2- Helath points exchange.
+3- Login with firebase and anonymous account with name.
+4- Redeems exchange with health points.
+5- Dark theme support.
+6- Listen to HP && redeems exchange and show snack bar.
+7- There is 2 type of exchange with threshold, big and normal, they are defined by constants in the app.
+8- History for HP and Reddems exchanges.
+
+
 | ![gif1](gif1.gif) | ![gif2](gif2.gif) |
 | -------------------- | --------------------- |
 ### Project structure:
