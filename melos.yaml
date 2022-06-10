@@ -31,4 +31,4 @@ scripts:
 
   spider:
     run: |
-      melos exec  --scope="*design*" -- spider build
+      melos exec spider build
