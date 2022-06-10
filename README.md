@@ -44,8 +44,8 @@ A simple steps tracker using [pedometer](https://pub.dev/packages/pedometer).
 │  │     └─ presentation
 │  ├─ firebase_option
 │  ├─ main.dart
-│  ├─ resou
-│  ├─ rout
+│  ├─ resources
+│  ├─ router
 │  ├─ service_locator
 │  │  ├─ features
 │  │  └─ service_locator.dart
