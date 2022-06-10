@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class AppException<OriginalException> implements Exception {
   const AppException({required this.message, required this.exception});
 
-  const AppException.unknown({required this.exception}) : message = 'unknown';
+  const AppException.unknown({required this.exception})
+      : message = 'Unknown exception occurred!';
 
   final OriginalException exception;
   final String message;
@@ -20,11 +21,14 @@ class AppException<OriginalException> implements Exception {
 }
 
 enum AppNetworkExceptionReason {
-  canceled,
-  timedOut,
-  responseError,
-  noInternet,
-  serverError
+  canceled('Request canceled!'),
+  timedOut('Request timed out!'),
+  responseError('Server response error!'),
+  noInternet('No internet connection'),
+  serverError('Server  error!');
+
+  const AppNetworkExceptionReason(this.message);
+  final String message;
 }
 
 class AppNetworkException<OriginalException extends Exception>
@@ -98,7 +102,7 @@ extension AppExceptionExt on AppException {
   }
 }
 
-extension BuildContextExt on BuildContext{
+extension BuildContextExt on BuildContext {
   ColorScheme get colorScheme => Theme.of(this).colorScheme;
   ThemeData get theme => Theme.of(this);
   TextTheme get textTheme => Theme.of(this).textTheme;

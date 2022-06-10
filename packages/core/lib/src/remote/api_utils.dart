@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,11 +10,15 @@ import 'result/api_result.dart';
 
 Future<T> throwAppException<T>(FutureOr<T> Function() call) async {
   try {
-    return call();
+    return (await call());
   } on AppException catch (_) {
     rethrow;
   } on FirebaseException catch (e) {
-    throw AppException(exception: e, message: e.message ?? 'unknown exception');
+    throw AppNetworkResponseException(
+        exception: e, data: e.message ?? 'unknown exception');
+  } on SocketException catch (e) {
+    throw AppNetworkException(
+        reason: AppNetworkExceptionReason.noInternet, exception: e);
   } catch (e, s) {
     log(e.toString(), stackTrace: s);
     throw AppException.unknown(exception: e);
@@ -36,7 +41,7 @@ Future<ApiResult<T>> toApiResult<T>(FutureOr<T> Function() call,
       exception: e,
     );
   } on AppNetworkException catch (e) {
-    final message = (prefix + e.message).tr();
+    final message = e.message;
     final appNetworkException = e.copyWith(message: message);
     return ApiResult.failure(
       message: message,
@@ -47,7 +52,7 @@ Future<ApiResult<T>> toApiResult<T>(FutureOr<T> Function() call,
     final exception = AppException.unknown(exception: e);
     return ApiResult.failure(
       exception: exception,
-      message: (prefix + exception.message).tr(),
+      message: exception.message,
     );
   }
 }
