@@ -16,7 +16,7 @@ class RankPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return FirestoreAnimatedList(
       query: sl<PedometerFacade>().usersRankQuery(),
-      emptyChild: const Center(child: Text('Move move! 🏃')),
+      emptyChild: const Center(child: Text('Lazy Town!🌚')),
       itemBuilder: (
         BuildContext context,
         DocumentSnapshot? snapshot,
