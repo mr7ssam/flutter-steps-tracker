@@ -2,6 +2,18 @@
 
 A simple steps tracker using [pedometer](https://pub.dev/packages/pedometer).
 
+1. Cloud Firestone Database.
+2. Daily steps counter.
+3. Heath points exchange.
+4.  Login with Firebase and anonymous account with name.
+5. Redeems exchange with health points.
+6. Dark theme support.
+7. Listen to HP && redeems exchange and show snack bar.
+8. There is 2 type of exchange with threshold, big and normal, they are defined by constants in the code.
+9. History for HP and Redeems exchanges.
+
+
+
 | ![gif1](gif1.gif) | ![gif2](gif2.gif) |
 | -------------------- | --------------------- |
 ### Project structure:
@@ -32,8 +44,8 @@ A simple steps tracker using [pedometer](https://pub.dev/packages/pedometer).
 │  │     └─ presentation
 │  ├─ firebase_option
 │  ├─ main.dart
-│  ├─ resou
-│  ├─ rout
+│  ├─ resources
+│  ├─ router
 │  ├─ service_locator
 │  │  ├─ features
 │  │  └─ service_locator.dart
