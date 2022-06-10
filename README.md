@@ -65,8 +65,8 @@ scripts:
 
   easy_local:
     run: |
-      melos exec --depends-on="easy_localization" -- $easy &&
-      melos exec --depends-on="easy_localization" -- $easy -f keys -o locale_keys.g.dart
+      melos exec --depends-on="easy_localization"  -- $easy &&
+      melos exec --depends-on="easy_localization"  -- $easy -f keys -o locale_keys.g.dart
     env:
       easy: flutter pub run easy_localization:generate -S translations
 
@@ -81,5 +81,5 @@ scripts:
 
   spider:
     run: |
-      melos exec  --scope="*design*" -- spider build
+      melos exec spider build
 ```
