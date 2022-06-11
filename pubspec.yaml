@@ -17,8 +17,9 @@ dependencies:
     path: packages/design
   firebase_auth: ^3.3.12
   firebase_core: ^1.14.0
-  firestore_ui: ^1.23.0
   flutter:
+    sdk: flutter
+  flutter_localizations:
     sdk: flutter
   flutter_bloc: ^8.0.1
   flutter_svg: ^1.0.3
@@ -43,34 +44,9 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
   assets:
     - assets/
 
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+flutter_intl:
+  enabled: true

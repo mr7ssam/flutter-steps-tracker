@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_steps_tracker/common/extension.dart';
 import 'package:pedometer/pedometer.dart';
 
-import '../../application/facade.dart';
+import '../../pedometer/application/facade.dart';
 
 class PedometerProvider extends ChangeNotifier {
   final PedometerFacade facade;

@@ -16,7 +16,7 @@ use_part_of: true
 use_references_list: false
 
 # Location where all the generated references will be stored
-package: resources
+package: generated/resources
 
 groups:
   - paths:

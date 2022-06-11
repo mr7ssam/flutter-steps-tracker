@@ -1,7 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_steps_tracker/features/pedometer/domain/params/bay_gift_params.dart';
 
+import '../entities/gift_model.dart';
+
 abstract class IGiftsRepo {
-  Query giftsQuery();
+  Stream<List<GiftModel>> giftsStream();
   Future<void> bayGift(GiftParams params);
 }

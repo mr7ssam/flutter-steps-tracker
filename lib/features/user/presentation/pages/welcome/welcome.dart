@@ -2,6 +2,7 @@ import 'package:design/design.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_steps_tracker/features/user/presentation/pages/login/login.dart';
+import 'package:flutter_steps_tracker/generated/l10n.dart';
 import 'package:flutter_steps_tracker/service_locator/service_locator.dart';
 import 'package:go_router/go_router.dart';
 
@@ -27,6 +28,7 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const buttonWidthFactor = 0.55;
+    final s = S.of(context);
 
     final theme = Theme.of(context);
     return BlocListener<WelcomeBloc, WelcomeState>(
@@ -38,7 +40,7 @@ class WelcomeScreen extends StatelessWidget {
               onPressed: () {
                 context.read<WelcomeBloc>().add(WelcomeSignInSkipped(context));
               },
-              child: const Text('Skip'),
+              child: Text(s.skip),
             ),
           ],
         ),
@@ -51,7 +53,7 @@ class WelcomeScreen extends StatelessWidget {
                 Icon(Icons.flutter_dash_rounded,
                     size: 100.r, color: theme.colorScheme.primary),
                 const RSizedBox.vertical(32),
-                const YouText.titleLarge('Flutter Steps Tracker'),
+                YouText.titleLarge(S.of(context).app_title),
               ],
             ),
             BlocBuilder<WelcomeBloc, WelcomeState>(
@@ -68,7 +70,7 @@ class WelcomeScreen extends StatelessWidget {
                       widthFactor: buttonWidthFactor,
                       child: FilledButton(
                         onPressed: () => _onSignUpPressed(context),
-                        child: const Text('Sign Up'),
+                        child: Text(s.sign_up),
                       ),
                     ),
                     Space.vS3,
@@ -76,7 +78,7 @@ class WelcomeScreen extends StatelessWidget {
                       widthFactor: buttonWidthFactor,
                       child: OutlinedButton(
                         onPressed: () => _onLoginPressed(context),
-                        child: const Text('Login'),
+                        child: Text(s.login),
                       ),
                     ),
                   ],

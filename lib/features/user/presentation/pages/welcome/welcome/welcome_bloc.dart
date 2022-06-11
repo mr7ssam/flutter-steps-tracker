@@ -4,6 +4,7 @@ import 'package:core/core.dart';
 import 'package:design/design.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_steps_tracker/generated/l10n.dart';
 
 import '../../../../../../common/app_manger/app_manger_bloc.dart';
 import '../../../../application/facade.dart';
@@ -41,6 +42,7 @@ class WelcomeBloc extends Bloc<WelcomeEvent, WelcomeState> {
     final result = await showDialog(
         context: context,
         builder: (context) {
+          final s = S.of(context);
           return Dialog(
             child: RPadding(
               padding: PEdgeInsets.listView,
@@ -48,22 +50,18 @@ class WelcomeBloc extends Bloc<WelcomeEvent, WelcomeState> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const YouText.titleLarge(
-                    'Antonymous Login',
+                  YouText.titleLarge(
+                    s.login,
                   ),
                   Space.vM3,
-                  const YouText.bodyMedium(
-                    'Enter your name to continue:',
+                  YouText.bodyMedium(
+                    s.enter_email,
                   ),
                   Space.vM3,
                   CustomReactiveTextField(
-                    labelText: 'Your name',
-                    hintText: 'Enter the your name',
+                    labelText: s.enter_name,
+                    hintText: s.enter_name,
                     formControl: control,
-                  ),
-                  Space.vM1,
-                  const YouText.labelSmall(
-                    'You can sign in later don\'t worry',
                   ),
                   Space.vM3,
                   Row(
@@ -73,7 +71,7 @@ class WelcomeBloc extends Bloc<WelcomeEvent, WelcomeState> {
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: const Text('Cancel'),
+                          child: Text(s.cancel),
                         ),
                       ),
                       Expanded(
@@ -81,7 +79,7 @@ class WelcomeBloc extends Bloc<WelcomeEvent, WelcomeState> {
                           onPressed: () async {
                             await _onConfirm(control, context, emit);
                           },
-                          child: const Text('Continue'),
+                          child: Text(s.continue_t),
                         ),
                       )
                     ],

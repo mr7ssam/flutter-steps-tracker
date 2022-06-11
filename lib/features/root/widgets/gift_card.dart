@@ -3,8 +3,8 @@ import 'package:design/design.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../domain/entities/gift_model.dart';
-import '../manager/gifts_provider.dart';
+import '../../pedometer/domain/entities/gift_model.dart';
+import '../pages/gifts_page/provider.dart';
 
 class GiftCard extends StatelessWidget {
   const GiftCard({Key? key, required this.model}) : super(key: key);

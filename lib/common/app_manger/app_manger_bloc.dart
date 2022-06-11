@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,9 +13,6 @@ part 'app_manger_state.dart';
 class AppMangerBloc extends Bloc<AppMangerEvent, AppMangerState> {
   AppMangerBloc({this.doBeforeOpen}) : super(const AppMangerState.initial()) {
     on<AppMangerEvent>(_handler);
-    stream.listen((event) {
-      log(event.toString());
-    });
   }
 
   late final StreamSubscription<User?> _streamSubscription;

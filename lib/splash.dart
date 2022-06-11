@@ -1,8 +1,10 @@
 import 'package:design/design.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_steps_tracker/resources/resources.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
+
+import 'generated/l10n.dart';
+import 'generated/resources/resources.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -28,7 +30,7 @@ class SplashScreen extends StatelessWidget {
               Lottie.asset(
                 LottieAssets.walking,
               ),
-              const YouText.titleLarge('The Duck Is Walking Now!'),
+              YouText.titleLarge(S.of(context).app_splash_title),
             ],
           ),
         ),

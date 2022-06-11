@@ -4,13 +4,14 @@ import 'package:core/core.dart';
 import 'package:design/design.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_steps_tracker/common/provider/user_provider.dart';
-import 'package:flutter_steps_tracker/features/pedometer/presentation/manager/pedometer_provider.dart';
+import 'package:flutter_steps_tracker/generated/l10n.dart';
+import 'package:flutter_steps_tracker/generated/resources/resources.dart';
 import 'package:lottie/lottie.dart';
 import 'package:odometer/odometer.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../common/const.dart';
-import '../../../../../resources/resources.dart';
+import '../../manager/pedometer_provider.dart';
 
 class PedometerPage extends StatelessWidget {
   const PedometerPage({Key? key}) : super(key: key);
@@ -24,8 +25,8 @@ class PedometerPage extends StatelessWidget {
     final unSupported =
         context.select<PedometerProvider, bool>((value) => value.unSupported);
     if (unSupported) {
-      return const Center(
-        child: Text('Device is not supported'),
+      return Center(
+        child: Text(S.of(context).not_supported_device),
       );
     }
     if (loading) {
@@ -35,6 +36,7 @@ class PedometerPage extends StatelessWidget {
     }
     return Consumer<PedometerProvider>(
       builder: (context, value, child) {
+        final s = S.of(context);
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -66,7 +68,7 @@ class PedometerPage extends StatelessWidget {
                 );
               },
             ),
-            const YouText.titleLarge('Your Steps Today'),
+            YouText.titleLarge(s.steps_today),
             Space.vM1,
             Builder(builder: (context) {
               final count = context
@@ -90,17 +92,19 @@ class PedometerPage extends StatelessWidget {
                             children: [
                               Icon(Icons.info_outline, size: 36.r),
                               Space.vM1,
-                              const YouText.bodyMedium(
-                                'Get $kBigHealthReward HP for $kBigHealthRewardThreshold steps, and $kHealthReward HP for $kHealthRewardThreshold steps ',
-                              ),
+                              YouText.bodyMedium(s.health_points_clarify(
+                                  kBigHealthReward,
+                                  kBigHealthRewardThreshold,
+                                  kHealthReward,
+                                  kHealthRewardThreshold)),
                             ],
                           ),
                         ));
               },
               icon: const Icon(Icons.info_outline),
             ),
-            const YouText.titleLarge('Health Points',
-                style: TextStyle(color: Colors.green)),
+            YouText.titleLarge(s.health_points,
+                style: const TextStyle(color: Colors.green)),
             Space.vS1,
             Builder(
               builder: (context) {

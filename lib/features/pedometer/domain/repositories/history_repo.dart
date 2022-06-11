@@ -1,12 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_steps_tracker/features/pedometer/domain/entities/redeem_model.dart';
+import 'package:flutter_steps_tracker/features/pedometer/domain/entities/user_counter_model.dart';
 
 import '../entities/health_record_model.dart';
 
 abstract class IHistoryRepo {
-  Query healthPointsAwardsQuery(String userId);
-  Query redeemsQuery(String userId);
+  Stream<List<HealthRecordModel>> healthPointsAwardsHistory(String userId);
 
-  Query usersRankQuery();
+  Stream<List<RedeemModel>> redeemsHistory(String userId);
+
+  Stream<List<UserCounterModel>> usersRankStream();
 
   Stream<HealthRecordModel> healthPointsAwardsChanges(String userId);
 }

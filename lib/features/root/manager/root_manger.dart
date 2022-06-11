@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:design/design.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_steps_tracker/generated/l10n.dart';
 
 import '../../pedometer/application/facade.dart';
 import 'package:flutter_steps_tracker/features/pedometer/domain/entities/health_record_model.dart';
@@ -10,6 +11,7 @@ class RootManger extends ChangeNotifier {
   final PedometerFacade _facade;
   late final BuildContext _context;
   late StreamSubscription _subscription;
+  final PageController pageController = PageController(initialPage: 0);
 
   RootManger(this._facade) {
     _init();
@@ -25,15 +27,16 @@ class RootManger extends ChangeNotifier {
   }
 
   void _healthAwardsListener(HealthRecordModel event) {
+    final s = S.of(_context);
     ScaffoldMessenger.of(_context).showSnackBar(SnackBar(
         content: Row(
       children: [
         const Icon(Icons.local_fire_department, color: Colors.orange),
         Space.hM1,
-        Text('Keep moving, you got ${event.points} HP'),
+        Text(s.keep_moving(event.points)),
         if (event.big) ...[
           const Spacer(),
-          const Text('Big One', style: TextStyle(color: Colors.orange)),
+          Text(s.big_one, style: const TextStyle(color: Colors.orange)),
         ]
       ],
     )));
@@ -44,8 +47,6 @@ class RootManger extends ChangeNotifier {
   }
 
   int _pageIndex = 0;
-
-  final PageController pageController = PageController(initialPage: 0);
 
   int get pageIndex => _pageIndex;
 

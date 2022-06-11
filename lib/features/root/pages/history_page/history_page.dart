@@ -1,6 +1,7 @@
 import 'package:design/design.dart';
 import 'package:flutter/material.dart';
 import 'package:core/core.dart';
+import 'package:flutter_steps_tracker/generated/l10n.dart';
 
 import 'tabs/tabs.dart';
 
@@ -17,12 +18,12 @@ class HistoryPage extends StatelessWidget {
           TabBar(
             labelColor: colorScheme.primary,
             indicatorColor: colorScheme.primary,
-            tabs: const [
+            tabs: [
               Tab(
-                text: 'Health Points',
+                text: S.of(context).health_points,
               ),
               Tab(
-                text: 'Redeems',
+                text: S.of(context).redeems,
               )
             ],
           ),

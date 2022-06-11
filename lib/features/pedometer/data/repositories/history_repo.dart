@@ -3,6 +3,8 @@ import 'package:flutter_steps_tracker/features/pedometer/data/remote/data_source
 import 'package:flutter_steps_tracker/features/pedometer/domain/repositories/history_repo.dart';
 
 import '../../domain/entities/health_record_model.dart';
+import '../../domain/entities/redeem_model.dart';
+import '../../domain/entities/user_counter_model.dart';
 
 class HistoryRepo extends IHistoryRepo {
   final HistoryRemote _remote;
@@ -10,13 +12,26 @@ class HistoryRepo extends IHistoryRepo {
   HistoryRepo(this._remote);
 
   @override
-  Query healthPointsAwardsQuery(String userId) {
-    return _remote.healthPointsQuery(userId);
+  Stream<List<HealthRecordModel>> healthPointsAwardsHistory(String userId) {
+    return _remote.healthPointsQuery(userId).snapshots().map(
+          (event) => event.docs
+              .map(
+                (e) =>
+                    HealthRecordModel.fromMap(e.data() as Map<String, dynamic>),
+              )
+              .toList(),
+        );
   }
 
   @override
-  Query redeemsQuery(String userId) {
-    return _remote.redeemsQuery(userId);
+  Stream<List<RedeemModel>> redeemsHistory(String userId) {
+    return _remote.redeemsQuery(userId).snapshots().map(
+          (event) => event.docs
+              .map(
+                (e) => RedeemModel.fromMap(e.data() as Map<String, dynamic>),
+              )
+              .toList(),
+        );
   }
 
   @override
@@ -28,12 +43,21 @@ class HistoryRepo extends IHistoryRepo {
         .skip(1)
         .expand((element) => element.docChanges)
         .where((element) => element.type == DocumentChangeType.added)
-        .map((event) => HealthRecordModel.fromMap(
-            event.doc.data() as Map<String, dynamic>));
+        .map(
+          (event) => HealthRecordModel.fromMap(
+              event.doc.data() as Map<String, dynamic>),
+        );
   }
 
   @override
-  Query<Object?> usersRankQuery() {
-    return _remote.userRankQuery();
+  Stream<List<UserCounterModel>> usersRankStream() {
+    return _remote.userRankQuery().snapshots().map(
+          (event) => event.docs
+              .map(
+                (e) =>
+                    UserCounterModel.fromMap(e.data() as Map<String, dynamic>),
+              )
+              .toList(),
+        );
   }
 }

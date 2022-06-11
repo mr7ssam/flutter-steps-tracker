@@ -1,0 +1,71 @@
+{
+  "@@locale": "en",
+  "app_splash_title": "The Duck Is Walking Now!",
+  "app_title": "Flutter Steps Tracker",
+  "welcome": "Welcome",
+  "login": "Login",
+  "antonymous_login": "Antonymous Login",
+  "sign_up": "Sign Up",
+  "skip": "Skip",
+  "enter_email": "Enter a email",
+  "enter_name": "Enter your name",
+  "email_validation": "Enter a valid email",
+  "cancel": "Cancel",
+  "continue_t": "continue",
+  "required_validation": "This filed is required",
+  "enter_password": "Enter a password",
+  "steps_today": "Your steps today",
+  "health_points": "Health Points",
+  "redeems": "Redeems",
+  "health_points_clarify": "Get {bigReward} HP for {big} steps, and {smallReward} HP for {small} steps",
+  "award_title": "You awarded a {hp} HP",
+  "redeems_title": "You bought a {name} and spent {hp} HP",
+  "big_one": "Big one",
+  "keep_moving": "Keep moving, you got {hp} HP",
+  "empty_gifts": "There is no gifts yet! \uD83D\uDE2D",
+  "empty_health_points_history": "No redeems \uD83D\uDE22",
+  "empty_redeems_history": "There is no gifts yet! \uD83D\uDE2D",
+  "empty_rank": "Lazy Town!\uD83C\uDF1A",
+  "now_enough_hp": "No enough HP!",
+  "not_supported_device": "Device is not supported!",
+  "@keep_moving": {
+    "placeholders": {
+      "hp": {
+        "type": "int"
+      }
+    }
+  },
+  "@redeems_title": {
+    "placeholders": {
+      "hp": {
+        "type": "int"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@award_title": {
+    "placeholders": {
+      "hp": {
+        "type": "int"
+      }
+    }
+  },
+  "@health_points_clarify": {
+    "placeholders": {
+      "bigReward": {
+        "type": "int"
+      },
+      "big": {
+        "type": "int"
+      },
+      "smallReward": {
+        "type": "int"
+      },
+      "small": {
+        "type": "int"
+      }
+    }
+  }
+}

@@ -1,25 +1,20 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:collection/collection.dart';
 import 'package:design/design.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_steps_tracker/common/app_manger/app_manger_bloc.dart';
-import 'package:flutter_steps_tracker/features/root/pages/gifts_page/gifts_page.dart';
-import 'package:flutter_steps_tracker/features/root/permission_handler_widget.dart';
+import 'package:flutter_steps_tracker/common/provider/local_provider.dart';
+import 'package:flutter_steps_tracker/features/root/widgets/permission_handler_widget.dart';
 import 'package:flutter_steps_tracker/features/root/widgets/nav_icon_animation.dart';
+import 'package:flutter_steps_tracker/generated/l10n.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/provider/theme_provider.dart';
 import '../../common/provider/user_provider.dart';
-import '../../service_locator/service_locator.dart';
-import '../pedometer/presentation/manager/gifts_provider.dart';
-import '../pedometer/presentation/manager/pedometer_provider.dart';
-import '../pedometer/presentation/pages/pedometer_page/pedometer_page.dart';
-import 'manager/permission_handler_provider.dart';
 import 'manager/root_manger.dart';
-import 'pages/history_page/history_page.dart';
-import 'pages/rank_page/rank_page.dart';
+import 'pages/pages.dart';
+import 'root_providers_widget.dart';
 
 class RootScreen extends StatelessWidget {
   const RootScreen({Key? key}) : super(key: key);
@@ -29,33 +24,15 @@ class RootScreen extends StatelessWidget {
   static Page pageBuilder(BuildContext context, GoRouterState state) {
     return MaterialPage<void>(
       key: state.pageKey,
-      child: MultiProvider(
-        providers: [
-          ChangeNotifierProvider(
-            create: (context) => RootManger(sl())..setContext(context),
-          ),
-          ChangeNotifierProvider<UserProvider>(
-            create: (context) => sl(),
-          ),
-          ChangeNotifierProvider<PermissionHandlerProvider>(
-            create: (context) =>
-                PermissionHandlerProvider()..askFormPermission(),
-          ),
-          ChangeNotifierProvider<PedometerProvider>(
-            create: (BuildContext context) => PedometerProvider(sl())..start(),
-          ),
-          ChangeNotifierProvider<GiftsProvider>(
-            create: (BuildContext context) =>
-                GiftsProvider(sl())..setBuildContext(context),
-          ),
-        ],
-        child: const RootScreen(),
+      child: const RootProvidersWidget(
+        root: RootScreen(),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final s = S.of(context);
     return Scaffold(
       bottomNavigationBar: Builder(
         builder: (context) {
@@ -74,12 +51,12 @@ class RootScreen extends StatelessWidget {
                 const NavigationDestination(
                   icon: Icon(FontAwesomeIcons.personWalking),
                   selectedIcon: Icon(FontAwesomeIcons.personWalking),
-                  label: 'Tracker',
+                  label: '',
                 ),
                 const NavigationDestination(
                   icon: Icon(FontAwesomeIcons.clockRotateLeft),
                   selectedIcon: Icon(FontAwesomeIcons.clockRotateLeft),
-                  label: 'History',
+                  label: '',
                 ),
                 const NavigationDestination(
                   icon: Icon(FontAwesomeIcons.bagShopping),
@@ -103,8 +80,16 @@ class RootScreen extends StatelessWidget {
         },
       ),
       appBar: AppBar(
-        title: const Text('Steps Tracker'),
+        title: Text(s.app_title),
         actions: [
+          IconButton(
+            onPressed: () {
+              LocalizationProvider.of(context).changeLocale();
+            },
+            icon: const Icon(
+              Icons.language_outlined,
+            ),
+          ),
           _buildThemeButton(context),
           Consumer<UserProvider>(
             builder: (context, value, child) {
@@ -113,7 +98,7 @@ class RootScreen extends StatelessWidget {
                       onPressed: () {
                         _onLoginLogoutAction(context);
                       },
-                      child: const Text('Login?'))
+                      child: Text('${s.app_title}?'))
                   : IconButton(
                       onPressed: () {
                         _onLoginLogoutAction(context);

@@ -1,10 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_steps_tracker/features/pedometer/domain/params/bay_gift_params.dart';
 import 'package:flutter_steps_tracker/features/pedometer/domain/repositories/history_repo.dart';
 import 'package:pedometer/pedometer.dart';
 
 import '../../user/domain/repositories/repo.dart';
+import '../domain/entities/gift_model.dart';
 import '../domain/entities/health_record_model.dart';
+import '../domain/entities/redeem_model.dart';
+import '../domain/entities/user_counter_model.dart';
 import '../domain/repositories/gifts_repo.dart';
 import '../domain/repositories/pedometer_repo.dart';
 
@@ -28,14 +30,16 @@ class PedometerFacade {
 
   void stopListener() => repo.stopListener();
 
-  Query healthPointsAwardsQuery() =>
-      historyRepo.healthPointsAwardsQuery(_userUid());
+  Stream<List<HealthRecordModel>> healthPointsAwardsHistory() =>
+      historyRepo.healthPointsAwardsHistory(_userUid());
 
-  Query redeemsQuery() => historyRepo.redeemsQuery(_userUid());
+  Stream<List<RedeemModel>> redeemsHistory() =>
+      historyRepo.redeemsHistory(_userUid());
 
-  Query giftsQuery() => giftsRepo.giftsQuery();
+  Stream<List<GiftModel>> giftsStream() => giftsRepo.giftsStream();
 
-  Query usersRankQuery() => historyRepo.usersRankQuery();
+  Stream<List<UserCounterModel>> usersRankStream() =>
+      historyRepo.usersRankStream();
 
   Future<void> bayGift(GiftParams giftParams) async {
     final params = giftParams.copyWith(

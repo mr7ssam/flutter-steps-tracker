@@ -1,33 +1,31 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firestore_ui/animated_firestore_list.dart';
+import 'package:design/design.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_steps_tracker/features/root/pages/history_page/provider.dart';
+import 'package:provider/provider.dart';
 
-import '../../../../../../service_locator/service_locator.dart';
-import '../../../../pedometer/application/facade.dart';
+import '../../../../../generated/l10n.dart';
 import '../../../../pedometer/domain/entities/redeem_model.dart';
-import '../../../../pedometer/presentation/widgets/redeem_tile_award.dart';
+import '../../../widgets/redeem_tile_award.dart';
 
 class RedeemsHistoryTab extends StatelessWidget {
   const RedeemsHistoryTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return FirestoreAnimatedList(
-      query: sl<PedometerFacade>().redeemsQuery(),
-      emptyChild: const Center(child: Text('No redeems 😢')),
-      itemBuilder: (
-        BuildContext context,
-        DocumentSnapshot? snapshot,
-        Animation<double> animation,
-        int index,
-      ) {
-        final model =
-            RedeemModel.fromMap(snapshot!.data() as Map<String, dynamic>);
-        return FadeTransition(
-          opacity: animation,
-          child: RedeemTileAward(model: model),
-        );
-      },
-    );
+    return Selector<HistoryProvider, List<RedeemModel>>(
+        builder: (context, value, child) {
+          if (value.isEmpty) {
+            return Center(child: Text(S.of(context).empty_redeems_history));
+          }
+          return ListView.builder(
+            padding: PEdgeInsets.vertical,
+            itemCount: value.length,
+            itemBuilder: (context, index) {
+              final model = value[index];
+              return RedeemTileAward(model: model);
+            },
+          );
+        },
+        selector: (_, data) => data.redeemsRecords);
   }
 }

@@ -1,29 +1,28 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:design/design.dart';
-import 'package:firestore_ui/firestore_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_steps_tracker/features/pedometer/domain/entities/gift_model.dart';
+import 'package:flutter_steps_tracker/features/root/pages/gifts_page/provider.dart';
 import 'package:odometer/odometer.dart';
+import 'package:provider/provider.dart';
 
-import '../../../../../service_locator/service_locator.dart';
-import '../../../pedometer/application/facade.dart';
-import '../../../pedometer/presentation/manager/pedometer_provider.dart';
-import '../../../pedometer/presentation/widgets/gift_card.dart';
+import '../../../../generated/l10n.dart';
+import '../../manager/pedometer_provider.dart';
+import '../../widgets/gift_card.dart';
 
 class GiftsPage extends StatelessWidget {
   const GiftsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final s = S.of(context);
     return Column(
       children: [
         Padding(
           padding: PEdgeInsets.listView,
           child: Row(
             children: [
-              const YouText.titleMedium(
-                'Your Health Points: ',
+              YouText.titleMedium(
+                s.health_points,
               ),
               Space.hS1,
               Builder(
@@ -43,27 +42,32 @@ class GiftsPage extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: FirestoreAnimatedGrid(
-            crossAxisCount: 2,
-            childAspectRatio: 4 / 5,
-            crossAxisSpacing: 16,
-            padding: PEdgeInsets.horizontal,
-            query: sl<PedometerFacade>().giftsQuery(),
-            itemBuilder: (
-              BuildContext context,
-              DocumentSnapshot? snapshot,
-              Animation<double> animation,
-              int index,
-            ) {
-              final model =
-                  GiftModel.fromMap(snapshot!.data() as Map<String, dynamic>);
-              return FadeTransition(
-                opacity: animation,
-                child: GiftCard(model: model),
-              );
-            },
-          ),
-        ),
+          child: Selector<GiftsProvider, List<GiftModel>>(
+              builder: (context, value, child) {
+                if (value.isEmpty) {
+                  return Center(
+                    child: Text(
+                      s.empty_gifts,
+                    ),
+                  );
+                }
+                return GridView.builder(
+                  padding: PEdgeInsets.listView,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 3 / 4,
+                    crossAxisSpacing: 16.r,
+                    mainAxisSpacing: 16.r,
+                  ),
+                  itemCount: value.length,
+                  itemBuilder: (context, index) {
+                    final model = value[index];
+                    return GiftCard(model: model);
+                  },
+                );
+              },
+              selector: (_, data) => data.gifts),
+        )
       ],
     );
   }

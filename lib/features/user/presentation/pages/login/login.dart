@@ -1,6 +1,7 @@
 import 'package:design/design.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_steps_tracker/generated/l10n.dart';
 import 'package:flutter_steps_tracker/service_locator/service_locator.dart';
 import 'package:go_router/go_router.dart';
 
@@ -22,12 +23,13 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final s = S.of(context);
     final loginBloc = context.read<LoginBloc>();
     return BlocListener<LoginBloc, LoginState>(
       listener: _listener,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Login'),
+          title: Text(s.login),
         ),
         body: ReactiveForm(
           formGroup: loginBloc.form,
@@ -41,9 +43,9 @@ class LoginScreen extends StatelessWidget {
                     closed: () => const RSizedBox.vertical(64),
                     open: () => const RSizedBox.vertical(16),
                   ),
-                  const YouText.headlineSmall(
-                    'Welcome',
-                    style: TextStyle(
+                  YouText.headlineSmall(
+                    s.welcome,
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -53,11 +55,11 @@ class LoginScreen extends StatelessWidget {
                     open: () => const RSizedBox.vertical(16),
                   ),
                   CustomReactiveTextField(
-                    hintText: 'Enter a email',
+                    hintText: s.enter_email,
                     prefix: Icons.email_outlined,
                     validationMessages: (control) => {
-                      ValidationMessage.email: 'Enter a valid email!',
-                      ValidationMessage.required: 'Required',
+                      ValidationMessage.email: s.email_validation,
+                      ValidationMessage.required: s.required_validation,
                     },
                     formControlName: LoginBloc.emailControllerName,
                     keyboardType: TextInputType.emailAddress,
@@ -65,12 +67,11 @@ class LoginScreen extends StatelessWidget {
                   const RSizedBox.vertical(16),
                   CustomReactiveTextField(
                     obscureText: true,
-                    hintText: 'Enter a password',
+                    hintText: s.enter_password,
                     prefix: Icons.lock_open_outlined,
                     formControlName: LoginBloc.passwordControllerName,
                     validationMessages: (control) => {
-                      ValidationMessage.email: 'Enter a valid email!',
-                      ValidationMessage.required: 'Required',
+                      ValidationMessage.required: s.required_validation,
                     },
                   ),
                   KeyboardVisibilityBuilder(
@@ -86,7 +87,7 @@ class LoginScreen extends StatelessWidget {
                         onPressed: () {
                           _onLoginPressed(context);
                         },
-                        child: const Text('Login'),
+                        child: Text(s.login),
                       );
                     },
                   ),

@@ -1,0 +1,71 @@
+{
+  "@@locale": "ar",
+  "app_splash_title": "البطة تمشي الآن!",
+  "app_title": "متتبع خطوات",
+  "welcome": "مرحبا",
+  "login": "تسجيل الدخول",
+  "antonymous_login": "تسجيل بدون حساب",
+  "sign_up": "تسجيل حساب",
+  "skip": "تخطي",
+  "enter_email": "ادخل البريد الابكتروني",
+  "enter_name": "ادخل اسمك",
+  "email_validation": "ادخل بريد الكتروني صالح!",
+  "cancel": "إالغاء",
+  "continue_t": "التالي",
+  "required_validation": "هذا الحقل مطلوب!",
+  "enter_password": "ادخل كلمة المرور",
+  "steps_today": "خطواتك اليوم",
+  "health_points": "نفاط الصحة",
+  "redeems": "مقايضات",
+  "health_points_clarify": "احصل على {bigReward} نقطة صحة من أجل {big} خطوة، و {smallReward} نقطة صحة من أجل {small} خطوة",
+  "award_title": "حصلت على {hp} نقطة صحة",
+  "redeems_title": "اشتريت {name} واستخدمت {hp} نقطة صحة",
+  "big_one": "جائزة كبيرة",
+  "keep_moving": "استمر بالسير، حصلت على {hp} نقطة صحة",
+  "empty_gifts": "لا يوجد هدايا بعد! \uD83D\uDE2D",
+  "empty_health_points_history": "لم تقك بأي غملية استبدال  \uD83D\uDE22",
+  "empty_redeems_history": "لم تقم بشراء شيء بعد! \uD83D\uDE2D",
+  "empty_rank": "مدينة الكسالى! \uD83C\uDF1A",
+  "now_enough_hp": "لا يوجد نقاط صحة كافية!",
+  "not_supported_device": "الجهاز ليس مدعوما!",
+  "@keep_moving": {
+    "placeholders": {
+      "hp": {
+        "type": "int"
+      }
+    }
+  },
+  "@redeems_title": {
+    "placeholders": {
+      "hp": {
+        "type": "int"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@award_title": {
+    "placeholders": {
+      "hp": {
+        "type": "int"
+      }
+    }
+  },
+  "@health_points_clarify": {
+    "placeholders": {
+      "bigReward": {
+        "type": "int"
+      },
+      "big": {
+        "type": "int"
+      },
+      "smallReward": {
+        "type": "int"
+      },
+      "small": {
+        "type": "int"
+      }
+    }
+  }
+}
