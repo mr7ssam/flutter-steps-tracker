@@ -20,10 +20,14 @@ class UserFacade {
   }
 
   Future<ApiResult<User>> signInAnonymously(String userName) async {
-    return toApiResult(() => _userRepo.signInAnonymously().then((value) async {
+    return toApiResult(
+      () => _userRepo.signInAnonymously().then(
+        (value) async {
           await value.updateDisplayName(userName);
           return value;
-        }));
+        },
+      ),
+    );
   }
 
   User? get user => _userRepo.user;

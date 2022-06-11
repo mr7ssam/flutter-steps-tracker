@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:core/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_steps_tracker/features/user/application/facade.dart';
 import 'package:flutter_steps_tracker/features/user/domain/params/login_params.dart';
@@ -23,10 +24,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     {
       emailControllerName: FormControl(
         validators: [
-          Validators.compose([
-            Validators.email,
-            Validators.required,
-          ])
+          Validators.compose(
+            [
+              Validators.email,
+              Validators.required,
+            ],
+          )
         ],
       ),
       passwordControllerName: FormControl(
@@ -38,15 +41,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   FutureOr<void> _handler(LoginEvent event, Emitter<LoginState> emit) async {
     if (event is LoginSubmitted) {
       await _mapSubmitted(emit);
-    } else if (event is LoginCanceled) {
-      _mapLoginCanceled();
     }
   }
 
-  void _mapLoginCanceled() {}
-
   Future<void> _mapSubmitted(Emitter<LoginState> emit) async {
-    if (form.valid) {
+    if (form.isValid()) {
       emit(LoginLoading());
       form.unfocus();
       final result = await _userFacade.login(LoginParams.fromMap(form.value));
@@ -54,8 +53,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         success: (data) => emit(LoginSuccess()),
         failure: (message, exception) => emit(LoginFailure(message)),
       );
-    } else {
-      form.markAllAsTouched();
     }
   }
 }

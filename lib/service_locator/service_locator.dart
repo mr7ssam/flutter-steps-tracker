@@ -5,7 +5,7 @@ import 'features/_export.dart';
 final sl = GetIt.I;
 
 Future<void> init() async {
-  await core();
+  await common();
   await user();
   pedometer();
 }

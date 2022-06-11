@@ -3,6 +3,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_steps_tracker/common/storage.dart';
+import 'package:flutter_steps_tracker/service_locator/service_locator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AppBlocObserver extends BlocObserver {
   @override
@@ -26,6 +29,12 @@ class AppBlocObserver extends BlocObserver {
 
 Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  final SharedPreferences sharedPreferences =
+      await SharedPreferences.getInstance();
+
+  sl.registerSingleton<IStorageService>(StorageService(sharedPreferences));
+
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };

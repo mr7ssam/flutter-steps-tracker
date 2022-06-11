@@ -10,6 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../../common/provider/theme_provider.dart';
 import '../../common/provider/user_provider.dart';
 import '../../service_locator/service_locator.dart';
 import '../pedometer/presentation/manager/gifts_provider.dart';
@@ -168,10 +169,6 @@ class RootScreen extends StatelessWidget {
   }
 
   void _onChangeTheme(BuildContext context, Brightness brightness) {
-    if (brightness == Brightness.dark) {
-      AdaptiveTheme.of(context).setLight();
-    } else {
-      AdaptiveTheme.of(context).setDark();
-    }
+    ThemeProvider.of(context).toggleTheme();
   }
 }

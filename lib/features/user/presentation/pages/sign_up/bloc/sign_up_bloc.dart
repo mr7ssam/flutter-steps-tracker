@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:core/core.dart';
 import 'package:meta/meta.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
@@ -13,6 +14,7 @@ part 'sign_up_state.dart';
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   SignUpBloc(this._userFacade) : super(SignUpInitial()) {
     on<SignUpEvent>(_handler);
+    // for anonymous sign in linking
     nameControl.value = _userFacade.user?.displayName;
   }
 
@@ -48,17 +50,11 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   FutureOr<void> _handler(SignUpEvent event, Emitter<SignUpState> emit) async {
     if (event is SignUpSubmitted) {
       await _mapSubmitted(emit);
-    } else if (event is SignUpCanceled) {
-      _mapSignUpCanceled();
     }
   }
 
-  void _mapSignUpCanceled() {
-    // final state = this.state.;
-  }
-
   Future<void> _mapSubmitted(Emitter<SignUpState> emit) async {
-    if (form.valid) {
+    if (form.isValid()) {
       emit(SignUpLoading());
 
       final result = await _userFacade.signUp(SignUpParams.fromMap(
@@ -68,8 +64,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         success: (data) => emit(SignUpSuccess()),
         failure: (message, _) => emit(SignUpFailure(message)),
       );
-    } else {
-      form.markAllAsTouched();
     }
   }
 }

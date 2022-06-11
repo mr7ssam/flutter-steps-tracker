@@ -25,18 +25,15 @@ class UserRemote {
     );
   }
 
-  Future<UserCredential> signUp(SignUpParams signUpParams,
-      {bool isAnonymous = false}) {
+  Future<UserCredential> signUp(
+    SignUpParams signUpParams, {
+    bool isAnonymous = false,
+  }) {
     return throwAppException(
       () async {
         late final UserCredential result;
         if (isAnonymous) {
-          final credential = EmailAuthProvider.credential(
-            email: signUpParams.email,
-            password: signUpParams.password,
-          );
-          result = await FirebaseAuth.instance.currentUser!
-              .linkWithCredential(credential);
+          result = await _linkWithCredential(signUpParams);
         } else {
           result = await _firebaseAuth.createUserWithEmailAndPassword(
             email: signUpParams.email,
@@ -55,5 +52,18 @@ class UserRemote {
         return _firebaseAuth.signOut();
       },
     );
+  }
+
+  Future<UserCredential> _linkWithCredential(
+    SignUpParams signUpParams,
+  ) async {
+    final credential = EmailAuthProvider.credential(
+      email: signUpParams.email,
+      password: signUpParams.password,
+    );
+    final result = await _firebaseAuth.currentUser!.linkWithCredential(
+      credential,
+    );
+    return result;
   }
 }

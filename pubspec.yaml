@@ -9,7 +9,6 @@ environment:
 
 
 dependencies:
-  adaptive_theme: ^3.0.0
   cloud_firestore: ^3.1.17
   core:
     path: packages/core
@@ -33,6 +32,7 @@ dependencies:
   provider: ^6.0.2
   reactive_forms: ^13.0.0
   rxdart: ^0.27.4
+  shared_preferences: ^2.0.15
   simple_animations: ^4.0.2
   timeago: ^3.2.2
 
