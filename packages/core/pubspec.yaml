@@ -1,5 +1,5 @@
 name: core
-description:  networking utils.
+description: core utils.
 version: 0.0.1
 
 environment:
@@ -7,17 +7,14 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-
-  easy_localization: ^3.0.1
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
-  flutter_image_compress: ^1.1.0
   freezed_annotation: ^2.0.3
+  intl: ^0.17.0
   reactive_forms: ^13.0.0
-  dio: ^4.0.6
-  rxdart: ^0.27.3
   firebase_auth: ^3.3.12
+
 
 
 dev_dependencies:

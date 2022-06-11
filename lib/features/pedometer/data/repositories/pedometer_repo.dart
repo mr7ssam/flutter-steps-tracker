@@ -48,11 +48,7 @@ class PedometerRepo extends IPedometerRepo {
     _user = user;
     pedometerRemote.user = _user;
     _subscription ??= pedometerService.stepCount.listen((event) async {
-      await addSteps(
-        event.copyWith(
-          userName: user.displayName,
-        ),
-      );
+      await addSteps(event);
     });
   }
 

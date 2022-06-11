@@ -1,4 +1,5 @@
-import 'package:bootstrap/bootstrap.dart';
+import 'package:flutter_steps_tracker/bootstrap.dart';
+
 import 'app.dart';
 
 void main() {

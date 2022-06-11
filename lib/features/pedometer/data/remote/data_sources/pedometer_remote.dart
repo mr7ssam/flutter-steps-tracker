@@ -8,6 +8,8 @@ import '../../../../../common/const.dart';
 import '../../../domain/entities/step_model.dart';
 import '../../../domain/entities/user_counter_model.dart';
 
+// here there is a lot of logic for dynamic point reward using threshold
+// Todo [hussam] move it to backend service
 class PedometerRemote {
   PedometerRemote();
 
@@ -42,10 +44,10 @@ class PedometerRemote {
         newStepsCount,
       );
     }
-    await updateTotalCount(newSteps);
+    await _updateTotalCount(newSteps);
   }
 
-  Future<void> updateTotalCount(StepModel stepModel) async {
+  Future<void> _updateTotalCount(StepModel stepModel) async {
     final userDoc = _userDoc(userId);
     final userDocRef = await userDoc.get();
     final total = (userDocRef.data() as Map?)?['count'] ?? 0;
@@ -82,6 +84,7 @@ class PedometerRemote {
     }
   }
 
+  // update health according to specific threshold
   Future<bool> _updateHealthPoints(
     int rewardThreshold,
     int todayCount,

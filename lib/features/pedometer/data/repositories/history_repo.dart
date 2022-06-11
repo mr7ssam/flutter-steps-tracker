@@ -24,6 +24,7 @@ class HistoryRepo extends IHistoryRepo {
     return _remote
         .healthPointsQuery(userId)
         .snapshots()
+        // skip first snapshot, all documents will be in the list as Added changes.
         .skip(1)
         .expand((element) => element.docChanges)
         .where((element) => element.type == DocumentChangeType.added)

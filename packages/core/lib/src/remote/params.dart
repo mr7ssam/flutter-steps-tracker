@@ -1,16 +1,10 @@
-import 'dart:async';
-
-import 'package:dio/dio.dart';
-
 abstract class IMap {
   const IMap();
 
   Map<String, dynamic> toMap();
 }
 
-abstract class Params implements IMap {
-  final CancelToken cancelToken = CancelToken();
-}
+abstract class Params implements IMap {}
 
 class ParamsWrapper extends Params {
   final Map<String, dynamic> params;
@@ -21,11 +15,7 @@ class ParamsWrapper extends Params {
   Map<String, dynamic> toMap() => params;
 }
 
-abstract class FormDataParams extends Params {
-  FutureOr<FormData> toFromData();
-}
-
-class NoParams extends Params  {
+class NoParams extends Params {
   @override
   Map<String, dynamic> toMap() => {};
 }
@@ -44,10 +34,4 @@ class PagingParams extends Params {
         'pageNumber': page,
         'pageSize': pageSize,
       };
-}
-
-extension ParamsEx on Params {
-  FormData toFormData() {
-    return FormData.fromMap(toMap());
-  }
 }

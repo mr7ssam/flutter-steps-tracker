@@ -1,5 +1,11 @@
 import 'package:permission_handler/permission_handler.dart';
 
+typedef OnPermanentlyDenied = void Function();
+
+typedef OnDenied = void Function();
+
+typedef OnGranted = void Function();
+
 abstract class GrantPermissionStrategy {
   final Permission permission;
 
@@ -34,12 +40,6 @@ abstract class GrantPermissionStrategy {
     }
   }
 }
-
-typedef OnPermanentlyDenied = void Function();
-
-typedef OnDenied = void Function();
-
-typedef OnGranted = void Function();
 
 class GrantPermissionActivityStrategy extends GrantPermissionStrategy {
   GrantPermissionActivityStrategy() : super(Permission.activityRecognition);
