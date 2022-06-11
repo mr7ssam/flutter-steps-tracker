@@ -73,12 +73,15 @@ class PedometerPage extends StatelessWidget {
             Builder(builder: (context) {
               final count = context
                   .select<PedometerProvider, int>((value) => value.count);
-              return AnimatedSlideOdometerNumber(
-                letterWidth: 32.r,
-                numberTextStyle: textTheme.displaySmall
-                    ?.copyWith(color: colorScheme.secondary),
-                odometerNumber: OdometerNumber(count),
-                duration: const Duration(seconds: 1),
+              return Directionality(
+                textDirection: TextDirection.ltr,
+                child: AnimatedSlideOdometerNumber(
+                  letterWidth: 32.r,
+                  numberTextStyle: textTheme.displaySmall
+                      ?.copyWith(color: colorScheme.secondary),
+                  odometerNumber: OdometerNumber(count),
+                  duration: const Duration(seconds: 1),
+                ),
               );
             }),
             const Spacer(flex: 2),
@@ -110,11 +113,14 @@ class PedometerPage extends StatelessWidget {
               builder: (context) {
                 final count = context.select<PedometerProvider, int>(
                     (value) => value.healthPoints);
-                return AnimatedSlideOdometerNumber(
-                  letterWidth: 16.r,
-                  numberTextStyle: textTheme.headline6,
-                  odometerNumber: OdometerNumber(count),
-                  duration: const Duration(seconds: 1),
+                return Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: AnimatedSlideOdometerNumber(
+                    letterWidth: 16.r,
+                    numberTextStyle: textTheme.headline6,
+                    odometerNumber: OdometerNumber(count),
+                    duration: const Duration(seconds: 1),
+                  ),
                 );
               },
             ),

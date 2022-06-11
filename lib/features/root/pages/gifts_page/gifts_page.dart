@@ -29,12 +29,15 @@ class GiftsPage extends StatelessWidget {
                 builder: (context) {
                   final count = context.select<PedometerProvider, int>(
                       (value) => value.healthPoints);
-                  return AnimatedSlideOdometerNumber(
-                    letterWidth: 10.r,
-                    numberTextStyle:
-                        textTheme.titleMedium?.copyWith(color: Colors.green),
-                    odometerNumber: OdometerNumber(count),
-                    duration: const Duration(seconds: 1),
+                  return Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: AnimatedSlideOdometerNumber(
+                      letterWidth: 10.r,
+                      numberTextStyle:
+                          textTheme.titleMedium?.copyWith(color: Colors.green),
+                      odometerNumber: OdometerNumber(count),
+                      duration: const Duration(seconds: 1),
+                    ),
                   );
                 },
               ),
