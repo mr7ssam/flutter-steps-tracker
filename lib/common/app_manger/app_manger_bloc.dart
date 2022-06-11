@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_steps_tracker/features/user/application/facade.dart';
 import 'package:flutter_steps_tracker/service_locator/service_locator.dart';

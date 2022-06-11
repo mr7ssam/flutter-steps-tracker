@@ -7,7 +7,7 @@ enum AppState {
 }
 
 @immutable
-class AppMangerState extends Equatable {
+class AppMangerState {
   final AppState state;
 
   const AppMangerState({required this.state});
@@ -26,7 +26,4 @@ class AppMangerState extends Equatable {
   String toString() {
     return {'state': state.name}.toString();
   }
-
-  @override
-  List<Object?> get props => [state];
 }

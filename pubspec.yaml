@@ -18,7 +18,6 @@ dependencies:
   cupertino_icons: ^1.0.2
   design:
     path: packages/design
-  equatable: ^2.0.3
   firebase_auth: ^3.3.12
   firebase_core: ^1.14.0
   firestore_ui: ^1.23.0
