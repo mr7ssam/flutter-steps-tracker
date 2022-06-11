@@ -35,7 +35,7 @@ class App extends StatelessWidget {
                 routeInformationParser:
                     appRouter.goRouter.routeInformationParser,
                 routerDelegate: appRouter.goRouter.routerDelegate,
-                title: 'Flutter Login Demo',
+                title: 'Flutter Steps Tracker',
                 theme: lightTheme,
                 darkTheme: darkTheme,
                 builder: (context, child) {
