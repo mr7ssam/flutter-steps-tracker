@@ -12,6 +12,7 @@ A simple steps tracker using [pedometer](https://pub.dev/packages/pedometer).
 8. There is 2 type of exchange with threshold, big and normal, they are defined by constants in the code.
 9. History for HP and Redeems exchanges.
 10. Users Ranking 🔥, not included in gifs 😢.
+11. Support arabic and english languge.
 
 
 
@@ -20,44 +21,52 @@ A simple steps tracker using [pedometer](https://pub.dev/packages/pedometer).
 ### Project structure:
 
 ```
-├─ lib
-│  ├─ app.dart
-│  ├─ common
-│  │  ├─ app_manger
-│  │  ├─ const.dart
-│  │  ├─ extension.dart
-│  │  ├─ permission_strategy.dart
-│  │  └─ provider
+lib
+├─ app.dart
+├─ bootstrap.dart
+├─ common
+│  ├─ app_manger
+│  ├─ const.dart
+│  ├─ extension.dart
+│  ├─ permission_strategy.dart
+│  ├─ provider
+│  └─ storage.dart
+├─ features
+│  ├─ pedometer
+│  │  ├─ application
+│  │  ├─ data
+│  │  └─ domain
+│  ├─ root
+│  │  ├─ manager
+│  │  ├─ pages
+│  │  │  ├─ gifts_page
+│  │  │  ├─ history_page
+│  │  │  ├─ pages.dart
+│  │  │  ├─ pedometer_page
+│  │  │  └─ rank_page
+│  │  ├─ root_screen.dart
+│  │  └─ widgets
+│  └─ user
+│     ├─ application
+│     ├─ data
+│     ├─ domain
+│     └─ presentation
+├─ firebase_options.dart
+├─ generated
+│  ├─ intl
+│  ├─ l10n.dart
+│  └─ resources
+├─ l10n
+│  ├─ intl_ar.arb
+│  └─ intl_en.arb
+├─ main.dart
+├─ router
+│  ├─ router.dart
+│  └─ routes.dart
+├─ service_locator
 │  ├─ features
-│  │  ├─ pedometer
-│  │  │  ├─ application
-│  │  │  ├─ data
-│  │  │  ├─ domain
-│  │  │  └─ presentati
-│  │  ├─ root
-│  │  │  ├─ manager
-│  │  │  ├─ permission_handler_widget.dart
-│  │  │  ├─ root_screen.dart
-│  │  └─ user
-│  │     ├─ application
-│  │     ├─ data
-│  │     ├─ domain
-│  │     └─ presentation
-│  ├─ firebase_option
-│  ├─ main.dart
-│  ├─ resources
-│  ├─ router
-│  ├─ service_locator
-│  │  ├─ features
-│  │  └─ service_locator.dart
-│  └─ splash
-├─ melos.yaml
-├─ packages
-│  ├─ bootstrap
-│  ├─ core
-│  └─ design
-├─ pubspec.yaml
-└─ spider.yaml
+│  └─ service_locator.dart
+└─ splash.dart
 ```
 
 ### Melos Scripts:
