@@ -9,20 +9,25 @@ class PedometerService {
 
   PedometerService();
 
+  // call it before start listening to newSteps
   Future<void> init() async {
     _lastCount =
         await Pedometer.stepCountStream.first.then((value) => value.steps);
   }
 
-  Stream<StepModel> get stepCount {
-    return Pedometer.stepCountStream.map((event) {
-      final stepCount = event.steps - _lastCount;
-      _lastCount = event.steps;
-      return StepModel(
-        count: stepCount,
-        timeStamp: event.timeStamp,
-      );
-    });
+  Stream<StepModel> get newSteps {
+    return Pedometer.stepCountStream.map(
+      (event) {
+        final newSteps = event.steps - _lastCount;
+        _lastCount = event.steps;
+        return StepModel(
+          count: newSteps,
+          timeStamp: event.timeStamp,
+        );
+      },
+    ).where(
+      (e) => e.count != 0,
+    );
   }
 
   Stream<PedestrianStatus> get pedestrianStatus {

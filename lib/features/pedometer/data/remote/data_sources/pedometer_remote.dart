@@ -148,7 +148,7 @@ class PedometerRemote {
 
   CollectionReference<Map<String, dynamic>> _todayStepsCollection(
           String userId) =>
-      _userDoc(userId).collection(stringNowDateTime());
+      _userDoc(userId).collection('steps');
 
   CollectionReference<Map<String, dynamic>> _healthPointCollection(
           String userId) =>
